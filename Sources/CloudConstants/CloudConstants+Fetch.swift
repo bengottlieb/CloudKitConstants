@@ -22,7 +22,9 @@ public extension CloudConstants {
 			
 			return .init(recordValue: raw)
 		} catch {
-			print("Failed to fetch CloudKit Record: \(error)")
+			if (error as? CKError)?.code != .unknownItem {
+				print("Failed to fetch CloudKit Record: \(error)")
+			}
 			return nil
 		}
 	}
